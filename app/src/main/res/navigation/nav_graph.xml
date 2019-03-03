@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/contributors_navigation"
+    app:startDestination="@id/contributorsListFragment">
+
+    <fragment
+        android:id="@+id/contributorsListFragment"
+        android:name="com.svapp.coroutinessandbox.presentation.contributors.ContributorsFragment"
+        android:label="ContributorsListFragment" />
+
+</navigation>
