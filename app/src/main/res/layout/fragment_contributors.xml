@@ -3,9 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="java.util.List" />
+
         <variable
-            name="viewModel"
-            type="com.svapp.coroutinessandbox.presentation.contributors.ContributorsViewModel" />
+            name="contributors"
+            type="List&lt;com.svapp.coroutinessandbox.data.model.Contributor&gt;" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,9 +18,9 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/contributorsRecyclerView"
-            app:contributors="@{viewModel.contributorsLiveData}"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:contributors="@{contributors}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

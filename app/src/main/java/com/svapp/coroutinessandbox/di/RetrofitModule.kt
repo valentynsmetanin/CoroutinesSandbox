@@ -1,7 +1,8 @@
 package com.svapp.coroutinessandbox.di
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.svapp.coroutinessandbox.BuildConfig
-import com.svapp.coroutinessandbox.data.network.Api
+import com.svapp.coroutinessandbox.data.network.ContributorService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module.module
@@ -15,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 val retrofitModule = module {
     single { createOkHttpClient() }
     single { createRetrofit(get()) }
-    single { createService<Api>(get()) }
+    single { createService<ContributorService>(get()) }
 }
 
 private fun createOkHttpClient(): OkHttpClient {
@@ -33,20 +34,21 @@ private fun createOkHttpClient(): OkHttpClient {
         }.build()
 }
 
-fun createRetrofit(okHttpClient: OkHttpClient): Retrofit {
+private fun createRetrofit(okHttpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
         .baseUrl(BuildConfig.API_ENDPOINT)
         .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .client(okHttpClient)
         .build()
 }
 
-inline fun <reified T> createService(retrofit: Retrofit): T = retrofit.create(T::class.java)
+private inline fun <reified T> createService(retrofit: Retrofit): T = retrofit.create(T::class.java)
 
-fun <T> createService(retrofit: Retrofit, serviceClass: Class<T>): T {
+private fun <T> createService(retrofit: Retrofit, serviceClass: Class<T>): T {
     return retrofit.create(serviceClass)
 }
 
-fun resetRetrofit() {
+private fun resetRetrofit() {
     createOkHttpClient()
 }
