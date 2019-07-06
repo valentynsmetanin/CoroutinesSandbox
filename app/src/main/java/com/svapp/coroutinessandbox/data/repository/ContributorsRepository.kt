@@ -3,14 +3,34 @@ package com.svapp.coroutinessandbox.data.repository
 import androidx.lifecycle.LiveData
 import com.svapp.coroutinessandbox.data.ResultListener
 import com.svapp.coroutinessandbox.data.model.Contributor
+import com.svapp.coroutinessandbox.data.network.ContributorService
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
- * Created by Valentyn on 03.03.2019.
+ * Created by Valentyn on 13.01.2019.
  */
-interface ContributorsRepository {
+class ContributorsRepository(private val contributorService: ContributorService) : IContributorsRepository {
 
-    fun getRepoContributors(resultListener: ResultListener<LiveData<List<Contributor>>>)
+    override fun getRepoContributors(resultListener: ResultListener<List<Contributor>>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            runCatching {
+                contributorService.getContributorsAsync("square", "retrofit").await()
+            }.onSuccess {
+                withContext(Dispatchers.Main) {
+                    resultListener.onResult(it)
+                }
+            }.onFailure {
+                withContext(Dispatchers.Main) {
+                    resultListener.onError(it)
+                }
+            }
+        }
+    }
 
-    fun getUserByLogin(resultListener: ResultListener<LiveData<Contributor>>)
+    override fun getUserByLogin(resultListener: ResultListener<LiveData<Contributor>>) {
 
+    }
 }

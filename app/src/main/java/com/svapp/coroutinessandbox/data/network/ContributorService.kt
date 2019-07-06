@@ -12,7 +12,7 @@ import retrofit2.http.Path
 interface ContributorService {
 
     @GET("/repos/{owner}/{repo}/contributors")
-    fun getContributors(
+    fun getContributorsAsync(
         @Path("owner") owner: String,
         @Path("repo") repo: String
     ): Deferred<List<Contributor>?>

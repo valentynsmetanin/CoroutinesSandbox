@@ -21,7 +21,7 @@
 
         <ImageView
             android:id="@+id/iconImageView"
-            app:imageUrl="@{contributor.url}"
+            app:imageUrl="@{contributor.avatarUrl}"
             android:layout_width="80dp"
             android:layout_height="80dp"
             app:layout_constraintStart_toStartOf="parent"

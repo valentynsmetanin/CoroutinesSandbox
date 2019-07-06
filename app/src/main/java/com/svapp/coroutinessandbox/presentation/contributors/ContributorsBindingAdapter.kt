@@ -7,14 +7,12 @@ import com.svapp.coroutinessandbox.data.model.Contributor
 /**
  * Created by Valentyn on 13.01.2019.
  */
-class ContributorsBindingAdapter {
+object ContributorsBindingAdapter {
 
-    companion object {
-        @JvmStatic
-        @BindingAdapter(value = ["contributors"])
-        fun setContributors(recyclerView: RecyclerView, contributors: List<Contributor>?) {
-            (recyclerView.adapter as? ContributorsAdapter)?.items = contributors ?: arrayListOf()
-        }
+    @JvmStatic
+    @BindingAdapter(value = ["contributors"])
+    fun setContributors(recyclerView: RecyclerView, contributors: List<Contributor>?) {
+        (recyclerView.adapter as? ContributorsAdapter)?.items = contributors ?: arrayListOf()
     }
 
 }
