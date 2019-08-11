@@ -7,6 +7,20 @@
     <fragment
         android:id="@+id/contributorsListFragment"
         android:name="com.svapp.coroutinessandbox.presentation.contributors.ContributorsFragment"
-        android:label="ContributorsListFragment" />
+        android:label="ContributorsListFragment" >
+
+        <action
+            android:id="@+id/action_contributorsListFragment_to_contributorDetailsFragment"
+            app:destination="@id/contributorDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/contributorDetailsFragment"
+        android:name="com.svapp.coroutinessandbox.presentation.condtibutordetails.ContributorDetailsFragment"
+        android:label="ContributorDetailsFragment">
+        <argument
+            android:name="argLogin"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

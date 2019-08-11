@@ -12,7 +12,8 @@ import com.svapp.coroutinessandbox.databinding.ItemContributorBinding
 /**
  * Created by Valentyn on 13.01.2019.
  */
-class ContributorsAdapter : RecyclerView.Adapter<ContributorsAdapter.ContributorsViewHolder>() {
+class ContributorsAdapter(private val listener: ContributorClickListener? = null) :
+    RecyclerView.Adapter<ContributorsAdapter.ContributorsViewHolder>() {
 
     var items: List<Contributor> = mutableListOf()
         set(value) {
@@ -25,13 +26,17 @@ class ContributorsAdapter : RecyclerView.Adapter<ContributorsAdapter.Contributor
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: ContributorsViewHolder, position: Int) {
-        holder.bind(items[position])
+        val contributor = items[position]
+        holder.bind(contributor)
+        holder.itemView.setOnClickListener {
+            listener?.onContributorClick(contributor)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContributorsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = DataBindingUtil.inflate<ItemContributorBinding>(
-            layoutInflater, R.layout.item_contributor, parent,false
+            layoutInflater, R.layout.item_contributor, parent, false
         )
         return ContributorsViewHolder(binding)
     }
@@ -40,6 +45,10 @@ class ContributorsAdapter : RecyclerView.Adapter<ContributorsAdapter.Contributor
         fun bind(contributor: Contributor?) {
             binding.contributor = contributor
         }
+    }
+
+    interface ContributorClickListener {
+        fun onContributorClick(contributor: Contributor)
     }
 
 }
