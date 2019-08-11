@@ -1,35 +1,30 @@
 package com.svapp.coroutinessandbox.presentation.contributors
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.svapp.coroutinessandbox.data.ResultListener
+import androidx.lifecycle.viewModelScope
 import com.svapp.coroutinessandbox.data.model.Contributor
 import com.svapp.coroutinessandbox.data.repository.IContributorsRepository
+import com.svapp.coroutinessandbox.presentation.base.BaseViewModel
+import kotlinx.coroutines.launch
 
 /**
  * Created by Valentyn on 03.03.2019.
  */
-class ContributorsViewModel(private val repo: IContributorsRepository) : ViewModel() {
+class ContributorsViewModel(private val repo: IContributorsRepository) : BaseViewModel() {
 
-    val contributorsLiveData
-        get() = _valuesLiveData
-
-    private var _valuesLiveData: MutableLiveData<List<Contributor>> = MutableLiveData()
+    private val _contributorsLiveData = MutableLiveData<List<Contributor>>()
+    val contributorsLiveData = _contributorsLiveData
 
     init {
         getContributors()
     }
 
     private fun getContributors() {
-        repo.getRepoContributors(object : ResultListener<List<Contributor>> {
-            override fun onResult(result: List<Contributor>?) {
-                _valuesLiveData.value = result
+        viewModelScope.launch {
+            repo.getRepoContributors("square", "retrofit").handleResult {
+                _contributorsLiveData.value = it
             }
-
-            override fun onError(error: Throwable?) {
-                // do nothing for now
-            }
-        })
+        }
     }
 
 }

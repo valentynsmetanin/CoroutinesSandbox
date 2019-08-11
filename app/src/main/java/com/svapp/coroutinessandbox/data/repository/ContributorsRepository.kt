@@ -1,36 +1,30 @@
 package com.svapp.coroutinessandbox.data.repository
 
-import androidx.lifecycle.LiveData
 import com.svapp.coroutinessandbox.data.ResultListener
 import com.svapp.coroutinessandbox.data.model.Contributor
 import com.svapp.coroutinessandbox.data.network.ContributorService
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.Exception
 
 /**
  * Created by Valentyn on 13.01.2019.
  */
 class ContributorsRepository(private val contributorService: ContributorService) : IContributorsRepository {
 
-    override fun getRepoContributors(resultListener: ResultListener<List<Contributor>>) {
-        CoroutineScope(Dispatchers.IO).launch {
-            runCatching {
-                contributorService.getContributorsAsync("square", "retrofit").await()
-            }.onSuccess {
-                withContext(Dispatchers.Main) {
-                    resultListener.onResult(it)
-                }
-            }.onFailure {
-                withContext(Dispatchers.Main) {
-                    resultListener.onError(it)
-                }
+    override suspend fun getRepoContributors(owner: String, repoName: String): ResultListener<List<Contributor>> {
+        return runCatching {
+            withContext(Dispatchers.IO) {
+                contributorService.getContributorsAsync(owner, repoName).await()?.let {
+                    ResultListener.Success(it)
+                } ?: run { ResultListener.Error(Exception("Empty")) }
             }
-        }
+        }.onFailure {
+            ResultListener.Error(it)
+        }.getOrDefault(ResultListener.Success(emptyList()))
     }
 
-    override fun getUserByLogin(resultListener: ResultListener<LiveData<Contributor>>) {
-
+    override suspend fun getUserByLogin(): ResultListener<Contributor> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

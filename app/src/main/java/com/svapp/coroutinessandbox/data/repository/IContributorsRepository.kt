@@ -1,6 +1,5 @@
 package com.svapp.coroutinessandbox.data.repository
 
-import androidx.lifecycle.LiveData
 import com.svapp.coroutinessandbox.data.ResultListener
 import com.svapp.coroutinessandbox.data.model.Contributor
 
@@ -9,8 +8,8 @@ import com.svapp.coroutinessandbox.data.model.Contributor
  */
 interface IContributorsRepository {
 
-    fun getRepoContributors(resultListener: ResultListener<List<Contributor>>)
+    suspend fun getRepoContributors(owner: String, repoName: String): ResultListener<List<Contributor>>
 
-    fun getUserByLogin(resultListener: ResultListener<LiveData<Contributor>>)
+    suspend fun getUserByLogin(): ResultListener<Contributor>
 
 }
