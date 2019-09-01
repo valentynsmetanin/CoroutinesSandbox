@@ -15,7 +15,7 @@ class ContributorsRepository(private val contributorService: ContributorService)
         withContext(Dispatchers.IO) {
             contributorService.getContributors(owner, repoName)?.let {
                 ResultListener.Success(it)
-            } ?: run { ResultListener.Error(Exception("Empty")) }
+            } ?: ResultListener.Error(Exception("Empty"))
         }
     }.onFailure {
         ResultListener.Error(it)
@@ -25,7 +25,7 @@ class ContributorsRepository(private val contributorService: ContributorService)
         withContext(Dispatchers.IO) {
             contributorService.getContributor(login)?.let {
                 ResultListener.Success(it)
-            } ?: run { ResultListener.Error(Exception("Not found")) }
+            } ?: ResultListener.Error(Exception("Not found"))
         }
     }.onFailure {
         ResultListener.Error(it)
