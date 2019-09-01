@@ -10,11 +10,11 @@ import retrofit2.http.Path
 interface ContributorService {
 
     @GET("/repos/{owner}/{repo}/contributors")
-    suspend fun getContributorsAsync(
+    suspend fun getContributors(
         @Path("owner") owner: String,
         @Path("repo") repo: String
     ): List<Contributor>?
 
     @GET("/users/{login}")
-    suspend fun getContributor(@Path("login") login: String?): Contributor
+    suspend fun getContributor(@Path("login") login: String?): Contributor?
 }

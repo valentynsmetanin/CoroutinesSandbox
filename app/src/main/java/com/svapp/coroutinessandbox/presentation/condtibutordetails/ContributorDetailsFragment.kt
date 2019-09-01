@@ -25,7 +25,10 @@ class ContributorDetailsFragment : BaseFragment<FragmentContributorDetailsBindin
     }
 
     override fun setupViews() {
-        binding.lifecycleOwner = this
+        with(binding) {
+            lifecycleOwner = this@ContributorDetailsFragment
+            viewModel = mViewModel
+        }
         startViewModel()
     }
 

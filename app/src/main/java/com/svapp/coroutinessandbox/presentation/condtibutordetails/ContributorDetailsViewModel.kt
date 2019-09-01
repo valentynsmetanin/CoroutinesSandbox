@@ -17,13 +17,13 @@ class ContributorDetailsViewModel(private val repo: IContributorsRepository) : B
     val contributorLiveData: LiveData<Contributor> = _contributorLiveData
 
     fun start(login: String) {
-
+        getContributor(login)
     }
 
     private fun getContributor(login: String) {
         viewModelScope.launch {
-            repo.getRepoContributors("square", "retrofit").handleResult {
-               // _contributorsLiveData.value = it
+            repo.getContributorByLogin(login).handleResult {
+                _contributorLiveData.value = it
             }
         }
     }

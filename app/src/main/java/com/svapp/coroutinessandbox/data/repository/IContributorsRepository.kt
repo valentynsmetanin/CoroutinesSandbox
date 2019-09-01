@@ -10,6 +10,6 @@ interface IContributorsRepository {
 
     suspend fun getRepoContributors(owner: String, repoName: String): ResultListener<List<Contributor>>
 
-    suspend fun getUserByLogin(): ResultListener<Contributor>
+    suspend fun getContributorByLogin(login: String): ResultListener<Contributor>
 
 }
