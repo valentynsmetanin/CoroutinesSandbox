@@ -7,11 +7,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
-    override fun getLayoutResId(): Int = R.layout.activity_main
+    override fun getLayoutResId() = R.layout.activity_main
 
     override fun prepareActionBar() {
-        if (includedToolbar is Toolbar) {
-            setSupportActionBar(includedToolbar as Toolbar)
+        (includedToolbar as? Toolbar)?.let {
+            setSupportActionBar(it)
         }
     }
 }

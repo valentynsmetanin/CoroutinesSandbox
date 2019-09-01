@@ -15,12 +15,14 @@ class ContributorsFragment : BaseFragment<FragmentContributorsBinding>(), Contri
 
     private val mViewModel: ContributorsViewModel by viewModel()
 
-    override fun getLayoutResId(): Int = R.layout.fragment_contributors
+    override fun getLayoutResId() = R.layout.fragment_contributors
 
     override fun setupViews() {
-        binding.contributorsRecyclerView.adapter = ContributorsAdapter(this)
-        binding.viewModel = mViewModel
-        binding.lifecycleOwner = this
+        with(binding) {
+            contributorsRecyclerView.adapter = ContributorsAdapter(this@ContributorsFragment)
+            viewModel = mViewModel
+            lifecycleOwner = this@ContributorsFragment
+        }
     }
 
     override fun onContributorClick(contributor: Contributor) {

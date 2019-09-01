@@ -15,7 +15,7 @@ class ContributorsRepository(private val contributorService: ContributorService)
     override suspend fun getRepoContributors(owner: String, repoName: String): ResultListener<List<Contributor>> {
         return runCatching {
             withContext(Dispatchers.IO) {
-                contributorService.getContributorsAsync(owner, repoName).await()?.let {
+                contributorService.getContributorsAsync(owner, repoName)?.let {
                     ResultListener.Success(it)
                 } ?: run { ResultListener.Error(Exception("Empty")) }
             }

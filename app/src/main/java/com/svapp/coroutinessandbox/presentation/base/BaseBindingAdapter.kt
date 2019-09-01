@@ -6,18 +6,14 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 /**
  * Created by Valentyn on 13.01.2019.
- */
-object BaseBindingAdapter {
+*/
 
-    @JvmStatic
-    @BindingAdapter(value = ["imageUrl"])
-    fun loadImage(imageView: ImageView, url: String?) {
-        url.let {
-            GlideApp.with(imageView.context)
-                .load(it)
-                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                .into(imageView)
-        }
+@BindingAdapter("imageUrl")
+fun ImageView.loadImage(url: String?) {
+    url?.let {
+        GlideApp.with(this.context)
+            .load(it)
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+            .into(this)
     }
-
 }

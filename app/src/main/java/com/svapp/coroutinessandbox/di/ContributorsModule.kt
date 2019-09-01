@@ -4,7 +4,7 @@ import com.svapp.coroutinessandbox.data.repository.IContributorsRepository
 import com.svapp.coroutinessandbox.data.repository.ContributorsRepository
 import com.svapp.coroutinessandbox.presentation.condtibutordetails.ContributorDetailsViewModel
 import com.svapp.coroutinessandbox.presentation.contributors.ContributorsViewModel
-import org.koin.dsl.module.module
+import org.koin.dsl.module
 
 /**
  * Created by Valentyn on 03.03.2019.

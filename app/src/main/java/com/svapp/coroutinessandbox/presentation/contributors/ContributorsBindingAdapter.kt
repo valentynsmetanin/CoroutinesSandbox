@@ -10,5 +10,5 @@ import com.svapp.coroutinessandbox.data.model.Contributor
 
 @BindingAdapter("contributors")
 fun RecyclerView.setContributors(contributors: List<Contributor>?) {
-    (this.adapter as? ContributorsAdapter)?.items = contributors ?: arrayListOf()
+    (this.adapter as? ContributorsAdapter)?.items = contributors ?: emptyList()
 }

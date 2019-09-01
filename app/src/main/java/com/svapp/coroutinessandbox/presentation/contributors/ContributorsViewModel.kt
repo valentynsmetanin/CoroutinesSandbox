@@ -1,5 +1,6 @@
 package com.svapp.coroutinessandbox.presentation.contributors
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.svapp.coroutinessandbox.data.model.Contributor
@@ -13,7 +14,7 @@ import kotlinx.coroutines.launch
 class ContributorsViewModel(private val repo: IContributorsRepository) : BaseViewModel() {
 
     private val _contributorsLiveData = MutableLiveData<List<Contributor>>()
-    val contributorsLiveData = _contributorsLiveData
+    val contributorsLiveData: LiveData<List<Contributor>> = _contributorsLiveData
 
     init {
         getContributors()

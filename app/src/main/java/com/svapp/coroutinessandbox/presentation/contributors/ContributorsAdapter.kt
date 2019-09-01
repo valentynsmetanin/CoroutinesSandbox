@@ -23,7 +23,7 @@ class ContributorsAdapter(private val listener: ContributorClickListener? = null
             (field as? MutableList)?.addAll(value)
         }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: ContributorsViewHolder, position: Int) {
         val contributor = items[position]

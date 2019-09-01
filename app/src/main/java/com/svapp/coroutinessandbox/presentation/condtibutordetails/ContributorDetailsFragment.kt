@@ -15,7 +15,7 @@ class ContributorDetailsFragment : BaseFragment<FragmentContributorDetailsBindin
 
     private var mLogin: String? = null
 
-    override fun getLayoutResId(): Int = R.layout.fragment_contributor_details
+    override fun getLayoutResId() = R.layout.fragment_contributor_details
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
