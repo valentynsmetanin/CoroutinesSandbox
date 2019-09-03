@@ -7,7 +7,7 @@ abstract class BaseViewModel : ViewModel() {
 
     fun <T : Any> ResultListener<T>.handleResult(
         onLoading: (Boolean) -> Unit = this@BaseViewModel::handleLoading,
-        onError: (throwable: Throwable) -> Unit = this@BaseViewModel::handleError,
+        onError: (Throwable) -> Unit = this@BaseViewModel::handleError,
         onSuccess: (T) -> Unit
     ) {
         when (this) {

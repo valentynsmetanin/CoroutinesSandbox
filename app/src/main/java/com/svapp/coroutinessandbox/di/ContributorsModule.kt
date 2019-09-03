@@ -4,6 +4,7 @@ import com.svapp.coroutinessandbox.data.repository.IContributorsRepository
 import com.svapp.coroutinessandbox.data.repository.ContributorsRepository
 import com.svapp.coroutinessandbox.presentation.condtibutordetails.ContributorDetailsViewModel
 import com.svapp.coroutinessandbox.presentation.contributors.ContributorsViewModel
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 /**
@@ -11,6 +12,6 @@ import org.koin.dsl.module
  */
 val contributorsModule = module {
     single<IContributorsRepository> { ContributorsRepository(get()) }
-    factory { ContributorsViewModel(get()) }
-    factory { ContributorDetailsViewModel(get()) }
+    viewModel { ContributorsViewModel(get()) }
+    viewModel { ContributorDetailsViewModel(get()) }
 }
