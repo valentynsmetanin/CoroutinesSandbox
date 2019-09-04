@@ -21,7 +21,7 @@ class ContributorsViewModel(private val repo: IContributorsRepository) : BaseVie
     }
 
     private fun getContributors() {
-        viewModelScope.launch {
+        launch {
             repo.getRepoContributors("square", "retrofit").handleResult {
                 _contributorsLiveData.value = it
             }

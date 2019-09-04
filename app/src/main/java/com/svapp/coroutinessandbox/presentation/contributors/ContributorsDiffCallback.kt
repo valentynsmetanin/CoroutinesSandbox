@@ -15,13 +15,13 @@ class ContributorsDiffCallback(private val newContributors: List<Contributor>,
     override fun getNewListSize() = newContributors.size
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
-        oldContributors[oldItemPosition].name == newContributors[newItemPosition].name
+        oldContributors[oldItemPosition].id == newContributors[newItemPosition].id
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val old = oldContributors[oldItemPosition]
         val new = newContributors[newItemPosition]
 
-        return Objects.equals(old, new)
+        return old.avatarUrl == new.avatarUrl && old.name == new.name
     }
 
 }

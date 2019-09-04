@@ -21,7 +21,7 @@ class ContributorDetailsViewModel(private val repo: IContributorsRepository) : B
     }
 
     private fun getContributor(login: String) {
-        viewModelScope.launch {
+        launch {
             repo.getContributorByLogin(login).handleResult {
                 _contributorLiveData.value = it
             }

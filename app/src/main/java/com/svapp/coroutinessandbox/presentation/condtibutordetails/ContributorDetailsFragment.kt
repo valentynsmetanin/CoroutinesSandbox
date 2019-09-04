@@ -1,6 +1,7 @@
 package com.svapp.coroutinessandbox.presentation.condtibutordetails
 
 import android.os.Bundle
+import androidx.navigation.fragment.navArgs
 import com.svapp.coroutinessandbox.R
 import com.svapp.coroutinessandbox.databinding.FragmentContributorDetailsBinding
 import com.svapp.coroutinessandbox.presentation.base.BaseFragment
@@ -11,6 +12,8 @@ import org.koin.android.viewmodel.ext.android.viewModel
  */
 class ContributorDetailsFragment : BaseFragment<FragmentContributorDetailsBinding>() {
 
+    private val args: ContributorDetailsFragmentArgs by navArgs()
+
     private val mViewModel: ContributorDetailsViewModel by viewModel()
 
     private var mLogin: String? = null
@@ -19,14 +22,12 @@ class ContributorDetailsFragment : BaseFragment<FragmentContributorDetailsBindin
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            mLogin = it.getString("argLogin")
-        }
+        mLogin = args.argLogin
     }
 
     override fun setupViews() {
         with(binding) {
-            lifecycleOwner = this@ContributorDetailsFragment
+            lifecycleOwner = this@ContributorDetailsFragment.viewLifecycleOwner
             viewModel = mViewModel
         }
         startViewModel()
