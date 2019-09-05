@@ -3,7 +3,7 @@ package com.svapp.coroutinessandbox.presentation.contributors
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.svapp.coroutinessandbox.R
 import com.svapp.coroutinessandbox.data.model.Contributor
@@ -13,20 +13,10 @@ import com.svapp.coroutinessandbox.databinding.ItemContributorBinding
  * Created by Valentyn on 13.01.2019.
  */
 class ContributorsAdapter(private val listener: ContributorClickListener? = null) :
-    RecyclerView.Adapter<ContributorsAdapter.ContributorsViewHolder>() {
-
-    var items: List<Contributor> = mutableListOf()
-        set(value) {
-            val diffResult = DiffUtil.calculateDiff(ContributorsDiffCallback(value, field))
-            diffResult.dispatchUpdatesTo(this)
-            (field as? MutableList)?.clear()
-            (field as? MutableList)?.addAll(value)
-        }
-
-    override fun getItemCount() = items.size
+    ListAdapter<Contributor, ContributorsAdapter.ContributorsViewHolder>(ContributorsItemCallback()) {
 
     override fun onBindViewHolder(holder: ContributorsViewHolder, position: Int) {
-        val contributor = items[position]
+        val contributor = getItem(position)
         holder.bind(contributor)
         holder.itemView.setOnClickListener {
             listener?.onContributorClick(contributor)
