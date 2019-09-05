@@ -1,6 +1,5 @@
 package com.svapp.coroutinessandbox.presentation.contributors
 
-import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import com.svapp.coroutinessandbox.R
 import com.svapp.coroutinessandbox.data.model.Contributor
@@ -21,13 +20,16 @@ class ContributorsFragment : BaseFragment<FragmentContributorsBinding>(), Contri
         with(binding) {
             contributorsRecyclerView.adapter = ContributorsAdapter(this@ContributorsFragment)
             viewModel = mViewModel
-            lifecycleOwner = this@ContributorsFragment
+            lifecycleOwner = this@ContributorsFragment.viewLifecycleOwner
         }
     }
 
     override fun onContributorClick(contributor: Contributor) {
-        val bundle = bundleOf("argLogin" to contributor.login)
-        view?.findNavController()?.navigate(R.id.action_contributorsListFragment_to_contributorDetailsFragment, bundle)
+        contributor.login?.let {
+            val directions = ContributorsFragmentDirections
+                .actionContributorsListFragmentToContributorDetailsFragment(it)
+            view?.findNavController()?.navigate(directions)
+        }
     }
 
 }

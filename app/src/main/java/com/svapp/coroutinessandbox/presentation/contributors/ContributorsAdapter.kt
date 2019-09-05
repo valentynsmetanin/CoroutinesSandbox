@@ -41,7 +41,8 @@ class ContributorsAdapter(private val listener: ContributorClickListener? = null
         return ContributorsViewHolder(binding)
     }
 
-    class ContributorsViewHolder(private val binding: ItemContributorBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ContributorsViewHolder(private val binding: ItemContributorBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(contributor: Contributor?) {
             binding.contributor = contributor
         }

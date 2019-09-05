@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
  */
 data class Contributor(
     @SerializedName("id")
-    var id: Long,
+    val id: Long,
     @SerializedName("login")
     val login: String?,
     @SerializedName("url")
